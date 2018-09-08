@@ -18,7 +18,7 @@ module.exports = async (tt, username) => {
                 } = res;
 
                 return {
-                    data: await convertUserIdsToHandles(ids),
+                    data: await this.convertUserIdsToHandles(ids),
                         nextCursor,
                 };
             },

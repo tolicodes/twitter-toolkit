@@ -69,7 +69,7 @@ module.exports = class TwitterToolkit {
 
         this.rateLimits = await this.getRateLimits();
 
-        console.log('here', this.rateLimits);
+        console.log('rate limits', this.rateLimits);
 
         readyResolver();
     }
@@ -101,33 +101,31 @@ module.exports = class TwitterToolkit {
     async request(method, url, params, { noWaitForReady } = {}) {
         // ex: that first rate limits request
         if(!noWaitForReady) {
-            console.log('waiting')
             // make sure we are ready
             await this.ready;
         }
 
-        console.log('start')
-
         if (!this.queues[url]) {
-            console.log('creating')
             this.createQueue(url);
         }
 
         return this.queues[url].add(async () => {
             try {
-                const res = await client[method](url, params);
+                const result = await this.client[method](url, params);
+                return result;
             } catch (e) {
                 // not found
                 if (e.code === 34) return [];
 
                 // rate limited
-                if (e.code === 88) {}
+                if (e.code === 88) {
+                    
+                }
 
                 throw e;
             };
-
         }, {
-            fetchingMessage: `${method.toUpperCase()} ${(url + (params ? ` ${JSON.stringify(params)}` : '')).substring(0, 100)}... }`
+            name: `${method.toUpperCase()} ${(url + (params ? ` ${JSON.stringify(params)}` : '')).substring(0, 100)}... }`
         });
     }
 

@@ -1,5 +1,4 @@
 const paginate = require('../utils/paginate');
-
 module.exports = async (tt, username) => {
     const users = await paginate({
         cursor: -1,
@@ -18,8 +17,8 @@ module.exports = async (tt, username) => {
                 });
 
                 return {
-                    data: await convertUserIdsToUserNames(ids),
-                        nextCursor,
+                    data: await this.convertUserIdsToUserNames(ids),
+                    nextCursor,
                 };
             },
             params: {
