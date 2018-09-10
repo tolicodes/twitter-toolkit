@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "api-toolkit": "^1.0.0",
+    "moment": "^2.22.2",
     "twit": "^2.2.11"
   }
 }
