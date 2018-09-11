@@ -1,4 +1,5 @@
 const Twit = require('twit');
+const moment = require('moment');
 
 const {
   createProgressBar,
@@ -17,6 +18,8 @@ const convertUserIdsToHandles = require('./helpers/convertUserIdsToHandles');
 
 // Allows us to check 180/ 15 minutes. Let's check at half that rate just in cases
 const RATE_LIMIT_AUTO_FETCH_INTERVAL = 15 * 60 * 1000 / 180 * 2;
+
+const ON_RATE_LIMIT_TIMEOUT = RATE_LIMIT_AUTO_FETCH_INTERVAL;
 
 // how many pending requests can we have per endpoint
 const MAX_CONCURRENT_FETCH = 2;
@@ -131,7 +134,7 @@ module.exports = class TwitterToolkit {
           // write this better
           // for now it just waits 20 seconds so that the rate limit
           // auto request can find something
-          this.setRateLimitOnQueue(url, 20000);
+          this.setRateLimitOnQueue(url, moment().add(ON_RATE_LIMIT_TIMEOUT, 'milliseconds').unix());
           return;
         }
 
