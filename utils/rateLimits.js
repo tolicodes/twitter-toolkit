@@ -7,8 +7,8 @@ const setRateLimitOnQueue = (tt, url, reset) => {
   const unblockIn = moment.unix(reset)
     .diff(moment());
 
-  if(unblockIn < 0) {
-    console.log('LESS THAN 0', reset)
+  if (unblockIn < 0) {
+    console.log('LESS THAN 0', reset);
     return;
   }
 

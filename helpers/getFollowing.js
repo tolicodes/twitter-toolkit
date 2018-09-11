@@ -17,7 +17,7 @@ module.exports = async (tt, username) => paginate({
     });
 
     return {
-      data: await tt.helpers.convertUserIdsToHandles(ids),
+      data: ids ? await tt.helpers.convertUserIdsToHandles(ids) : [],
       nextCursor,
     };
   },
