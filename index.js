@@ -165,5 +165,6 @@ module.exports = class TwitterToolkit {
 
   close() {
     clearInterval(this.rateFetchTimeeout);
+    this.progressBar.removeBar();
   }
 };

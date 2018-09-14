@@ -32,8 +32,8 @@ const paginate = async ({
     ];
   }
 
-  console.log('paginate', results);
   return results;
 };
+
 
 module.exports = paginate;

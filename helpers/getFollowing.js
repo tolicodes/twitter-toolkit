@@ -8,13 +8,15 @@ module.exports = async (tt, username) => paginate({
       username,
     },
   }) => {
-    const {
-      ids,
-      next_cursor: nextCursor,
-    } = await tt.get('/friends/ids', {
+    const res = await tt.get('/friends/ids', {
       cursor,
       screen_name: username,
     });
+
+    const {
+      ids,
+      next_cursor: nextCursor,
+    } = res || {};
 
     return {
       data: ids ? await tt.helpers.convertUserIdsToHandles(ids) : [],
